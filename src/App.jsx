@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div style={{ marginTop: '75px', height: 1000 }}>
+      <div style={{ marginTop: '75px' }}>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>

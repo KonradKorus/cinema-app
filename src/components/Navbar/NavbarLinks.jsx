@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
 import { NavLink, Link } from 'react-router-dom';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
@@ -50,13 +51,16 @@ const NavbarLinks = () => {
             </Button>
           </NavLink>
 
-          <NavLink
-            to="#contact"
+          <ScrollLink
+            to="contact"
+            smooth={true}
+            duration={500}
+            spy={true}
             className={'activeNavbar'}
             style={{ display: 'inline-block', marginRight: 5 }}
           >
             <Button sx={{ color: '#fff', px: 1 }}>Kontakt</Button>
-          </NavLink>
+          </ScrollLink>
 
           {isLogged && isAdmin && (
             <NavLink

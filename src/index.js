@@ -19,7 +19,7 @@ export const darkTheme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 1002,
+      md: 1020,
       lg: 1200,
       xl: 1536,
     },
