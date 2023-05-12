@@ -9,13 +9,13 @@ import Repertoire from './pages/Repertoire/Repertoire';
 import Reservation from './pages/Reservation/Reservation';
 import Profile from './pages/Profile/Profile';
 import MovieDescription from './pages/MovieDescription/MovieDescription';
+import { Divider } from '@mui/material';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-
-      <div style={{ marginTop: '75px' }}>
+      <div style={{ marginTop: '75px', height: 1000 }}>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>
@@ -31,7 +31,7 @@ function App() {
           ></Route>
         </Routes>
       </div>
-      
+      <Divider />
       <Footer />
     </div>
   );

@@ -24,7 +24,7 @@ a{
   position: absolute;
   height:2px;
   width: 100%;
-  background-color: #A411BD;
+  background-color: #E91E63;
   left:0;
   bottom:1px;
   opacity:0;
@@ -35,7 +35,7 @@ a{
   opacity: 1;
 }
 .activeNavbar.active{
-  background-color: #312533;
+  background-color: #36262C;
 }
 .activeNavbar:hover::after{
   opacity:1;

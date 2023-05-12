@@ -64,7 +64,7 @@ const Navbar = () => {
                 flexGrow: 1,
                 display: { xs: 'none', sm: 'none', md: 'block' },
                 '&:hover': {
-                  backgroundColor: '#312533;',
+                  backgroundColor: '#36262C;',
                 },
               }}
             >

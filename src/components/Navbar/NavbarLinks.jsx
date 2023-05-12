@@ -7,7 +7,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 const isAdmin = false; //mock data
-const isLogged = true; //mock data
+const isLogged = false; //mock data
 
 const NavbarLinks = () => {
   return (
@@ -51,7 +51,7 @@ const NavbarLinks = () => {
           </NavLink>
 
           <NavLink
-            to="temp"
+            to="#contact"
             className={'activeNavbar'}
             style={{ display: 'inline-block', marginRight: 5 }}
           >
@@ -78,7 +78,7 @@ const NavbarLinks = () => {
                   variant="outlined"
                   sx={{
                     color: '#fff',
-                    bgcolor: '#312533',
+                    bgcolor: '#36262C',
                     mr: 2,
                   }}
                   startIcon={<LoginIcon />}
@@ -119,7 +119,7 @@ const NavbarLinks = () => {
                 <Button
                   startIcon={<LogoutIcon />}
                   variant="outlined"
-                  sx={{ color: '#fff', bgcolor: '#312533' }}
+                  sx={{ color: '#fff', bgcolor: '#36262C' }}
                 >
                   Wyloguj się
                 </Button>
