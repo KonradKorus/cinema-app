@@ -30,7 +30,7 @@ const Repertoire = () => {
   ]);
 
 
-  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleString() + "");
+  const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
   const [selectedCategory, setSelectedCategory] = useState('Kategoria');
   const [searchText, setSearchText] = useState('');
   const handleCategoryChange = (event) => {
@@ -79,7 +79,7 @@ const Repertoire = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs} >
           <DatePicker
             value={selectedDate}
-            onChange={(date) => handleDateChange(dayjs(date).format('DD/MM/YYYY'))}
+            onChange={(date) => handleDateChange(dayjs(date))}
             format="DD/MM/YYYY"
           />
         </LocalizationProvider>
@@ -106,8 +106,7 @@ const Repertoire = () => {
         </Button>
       </Container>
 
-      <h2 style={{ textAlign: 'center', fontSize: '28px' }}>Repertuar na dzień {selectedDate
-      }</h2>
+      <h2 style={{ textAlign: 'center', fontSize: '28px' }}>Repertuar na dzień {selectedDate.format('DD/MM/YYYY').toLocaleString() + ""}</h2>
       <Container sx={{ marginLeft: '25%', marginRight: '25%', textAlign: 'left', marginBottom: 10 }}>
         <ul>
           {repertuar.map((film) => (
