@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Box, Button } from '@mui/material';
 import { NavLink, Link } from 'react-router-dom';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
@@ -6,11 +6,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import { useAuth } from '../../contexts/AuthContext';
+
 
 const isAdmin = false; //mock data
-const isLogged = false; //mock data
 
 const NavbarLinks = () => {
+
+  const {isLogged, setIsLogged} = useAuth()
+
   return (
     <>
       <Box
@@ -119,15 +123,18 @@ const NavbarLinks = () => {
                 </Button>
               </NavLink>
 
-              <Link to="/logout" style={{ display: 'inline-block' }}>
-                <Button
-                  startIcon={<LogoutIcon />}
-                  variant="outlined"
-                  sx={{ color: '#fff', bgcolor: '#36262C' }}
-                >
-                  Wyloguj się
-                </Button>
-              </Link>
+              <Button
+                startIcon={<LogoutIcon />}
+                variant="outlined"
+                onClick={(e) => {
+                  e.preventDefault()
+                  localStorage.removeItem("user")
+                  setIsLogged(false)
+                }}
+                sx={{ color: '#fff', bgcolor: '#36262C' }}
+              >
+                Wyloguj się
+              </Button>
             </>
           )}
         </Box>
