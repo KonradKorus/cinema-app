@@ -37,8 +37,31 @@ const Repertoire = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const fetchData = (searchData) => {
+    // Tworzymy URL na podstawie danych wyszukiwania
+    const url = `https://example.com/api/repertuar?data=${searchData.data}&kategoria=${searchData.kategoria}&tytul=${searchData.tytul}`;
+
+    // Wywołujemy zapytanie do serwera
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Aktualizujemy stan aplikacji z otrzymanymi danymi
+        setRepertuar(data);
+      })
+      .catch(error => console.error(error));
+  };
+
   const handleSearch = () => {
     // Tu można zaimplementować logikę wyszukiwania repertuaru
+    // Zbuduj obiekt z danymi wyszukiwania na podstawie wybranych wartości
+    const searchData = {
+      data: selectedDate.format('YYYY-MM-DD'),
+      kategoria: selectedCategory,
+      tytul: searchText
+    };
+
+    // Wywołaj funkcję pobierającą dane z odpowiednim zapytaniem
+    fetchData(searchData);
     console.log('Wyszukiwanie...');
   };
 
@@ -62,13 +85,6 @@ const Repertoire = () => {
 
   const handleDateChange = (data) => {
     setSelectedDate(data);
-    // tutaj pobieramy repertuar dla wybranej daty z serwera lub bazy danych
-    // np. poprzez wywołanie API z datą jako parametrem
-    /*const url = `https://localhost:5000/repertuar?data=${data}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => setRepertuar(data))
-      .catch(error => console.error(error));*/
   };
 
 
@@ -106,16 +122,16 @@ const Repertoire = () => {
         </Button>
       </Container>
 
-      <h2 style={{ textAlign: 'center', fontSize: '28px' }}>Repertuar na dzień {selectedDate.format('DD/MM/YYYY').toLocaleString() + ""}</h2>
+      <h2 style={{ textAlign: 'center', fontSize: '28px', cursor: 'pointer' }}>Repertuar na dzień {selectedDate.format('DD/MM/YYYY').toLocaleString() + ""}</h2>
       <Container sx={{ marginLeft: '25%', marginRight: '25%', textAlign: 'left', marginBottom: 10 }}>
         <ul>
           {repertuar.map((film) => (
 
-            <li key={film.id} onClick={() => handleFilmClick(film.id)} style={{ listStyleType: 'none' }}>
+            <li key={film.id} style={{ listStyleType: 'none', cursor: 'pointer' }}>
               <Container style={{ display: 'flex' }}>
                 <p>
-                  <h3 style={{ fontSize: '28px' }}>{film.title}</h3>
-                  Date & hour: {film.data}, {film.hour}
+                  <h3 style={{ fontSize: '28px' }} onClick={() => handleFilmClick(film.id)}>{film.title}</h3>
+                  Date & hour: {film.date}, {film.hour}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Genre: {film.genre}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Age: {film.ageRestriction}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Duration: {film.duration}
