@@ -17,9 +17,7 @@ const Login = () => {
   { 
     e.preventDefault()
 
-    const data = {email: email, password: pass};
-
-    const token = await createToken(data)
+    const token = await createToken(email, pass)
     .catch((error) =>
     {
         alert("ERROR: " + error.message);
