@@ -1,4 +1,4 @@
-export const createToken = async({email, password}) =>
+export const createToken = async(email, password) =>
 {
     var data = encodeURIComponent("grant_type")
     data += "&" + encodeURIComponent("username") + "=" + encodeURIComponent(email)

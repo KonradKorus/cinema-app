@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField, Container, Typography, FormControlLabel, Checkbox, Button } from '@mui/material'
 import { createToken } from '../../hooks/hook'
+import { useAuth } from '../../contexts/AuthContext'
 
 
 
@@ -15,13 +16,13 @@ const Register = () => {
   const [repass, setRepass] = useState('')
   const agreement = useRef()
   const [error, setError] = useState(false)
-
-
+  
+  const {setIsLogged} = useAuth();
   const navigate = useNavigate();
 
   const sendRegistrationData = async() =>
   { 
-    const test = {
+    const toSend = {
       first_name: fname,
       last_name: lname,
       date_of_birth: date + "T00:00:0.000Z",
@@ -36,7 +37,7 @@ const Register = () => {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify(test)
+      body: JSON.stringify(toSend)
     })
 
     const data = await res.json();
@@ -73,7 +74,6 @@ const Register = () => {
             setPhone('')
             setPass('')
             setRepass('')
-            return
       });
 
       if(typeof(data) == "undefined")
@@ -81,7 +81,7 @@ const Register = () => {
         return;
       }
 
-      await createToken(data)
+      const token = await createToken(email, pass)
       .catch((e) => 
       {
         alert("ERROR: " + e.message)
@@ -95,6 +95,13 @@ const Register = () => {
         return
       });
 
+      if(typeof(token) == "undefined")
+      {
+        return;
+      }
+
+      localStorage.setItem("user", {"username": email, "token": token})
+      setIsLogged(true)
       navigate('/home');
   }
 

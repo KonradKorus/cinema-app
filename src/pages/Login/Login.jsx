@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 const Login = () => {
-  const {isLogged, setIsLogged} = useAuth();
+  const {setIsLogged} = useAuth();
 
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
@@ -28,7 +28,7 @@ const Login = () => {
         setError(true);
     });
     console.log(token)
-    
+
     if(typeof(token) == "undefined")
     {
         return;
