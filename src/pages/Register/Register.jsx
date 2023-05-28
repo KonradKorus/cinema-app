@@ -76,6 +76,11 @@ const Register = () => {
             return
       });
 
+      if(typeof(data) == "undefined")
+      {
+        return;
+      }
+
       await createToken(data)
       .catch((e) => 
       {

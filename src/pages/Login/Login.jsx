@@ -26,9 +26,13 @@ const Login = () => {
         setEmail('');
         setPass('');
         setError(true);
-        return;
     });
-
+    console.log(token)
+    
+    if(typeof(token) == "undefined")
+    {
+        return;
+    }
 
     localStorage.setItem("user", {"username": email, "token": token});
     setIsLogged(true);
