@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Box, Button } from '@mui/material';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -8,12 +8,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useAuth } from '../../contexts/AuthContext';
 
-
-const isAdmin = false; //mock data
-
 const NavbarLinks = () => {
 
   const {isLogged, setIsLogged} = useAuth()
+  const {isAdmin} = useAuth()
+  const navigate = useNavigate()
 
   return (
     <>
@@ -119,7 +118,9 @@ const NavbarLinks = () => {
                   sx={{ color: '#fff', px: 2 }}
                   startIcon={<PersonIcon />}
                 >
-                  user123
+                  {
+                    JSON.parse(localStorage.getItem("user")).first_name + " " + JSON.parse(localStorage.getItem("user")).last_name
+                  }
                 </Button>
               </NavLink>
 
@@ -130,6 +131,7 @@ const NavbarLinks = () => {
                   e.preventDefault()
                   localStorage.removeItem("user")
                   setIsLogged(false)
+                  navigate('/home')
                 }}
                 sx={{ color: '#fff', bgcolor: '#36262C' }}
               >

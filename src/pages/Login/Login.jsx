@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import { TextField, Container, Typography, Button } from '@mui/material'
-import { createToken } from '../../hooks/hook'
+import { createToken, getUserData } from '../../hooks/hook'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 const Login = () => {
-  const {setIsLogged} = useAuth();
+  const {setIsAdmin, setIsLogged} = useAuth();
 
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
@@ -32,7 +32,28 @@ const Login = () => {
         return;
     }
 
-    localStorage.setItem("user", {"username": email, "token": token});
+    localStorage.setItem("token", token);
+
+    const data = await getUserData()
+    .catch((e) => 
+    {
+      alert("ERROR: " + e.message)
+      setEmail('');
+      setPass('');
+      setError(true);
+    });
+
+    if(data.role === "admin")
+    {
+      setIsAdmin(true)
+    }
+    else
+    {
+      setIsAdmin(false)
+    }
+
+    localStorage.setItem("user", JSON.stringify(data));
+
     setIsLogged(true);
 
     navigate("/home")

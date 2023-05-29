@@ -10,11 +10,14 @@ export const useAuth = () =>
 export const AuthProvider = (props) => 
 {
     const [isLogged, setIsLogged] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const value = 
     {
         isLogged,
-        setIsLogged
+        setIsLogged,
+        isAdmin,
+        setIsAdmin
     }
     
     return (

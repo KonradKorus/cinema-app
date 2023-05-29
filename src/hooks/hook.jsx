@@ -29,3 +29,30 @@ export const createToken = async(email, password) =>
         return login.access_token;   
     }
 }
+
+export const getUserData = async() => 
+{
+    const token = (localStorage.hasOwnProperty("token")) ? localStorage.getItem("token") : "";
+
+    const res = await fetch("http://localhost:8000/users/me", 
+    {
+        method: "GET",
+        headers: 
+        {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    )
+
+    const user = await res.json();
+
+    if(!user.hasOwnProperty("email"))
+    {
+        throw new Error(user.detail)
+    }
+    else
+    {
+        return user
+    }
+}

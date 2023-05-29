@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField, Container, Typography, FormControlLabel, Checkbox, Button } from '@mui/material'
-import { createToken } from '../../hooks/hook'
+import { createToken, getUserData } from '../../hooks/hook'
 import { useAuth } from '../../contexts/AuthContext'
 
 
@@ -17,7 +17,7 @@ const Register = () => {
   const agreement = useRef()
   const [error, setError] = useState(false)
   
-  const {setIsLogged} = useAuth();
+  const {setIsAdmin, setIsLogged} = useAuth();
   const navigate = useNavigate();
 
   const sendRegistrationData = async() =>
@@ -81,6 +81,7 @@ const Register = () => {
         return;
       }
 
+      
       const token = await createToken(email, pass)
       .catch((e) => 
       {
@@ -100,7 +101,35 @@ const Register = () => {
         return;
       }
 
-      localStorage.setItem("user", {"username": email, "token": token})
+      localStorage.setItem("token", token)
+
+      const userData = await getUserData()
+      .catch((e) => {
+        alert("ERROR: " + e.message)
+        setFname('')
+        setLname('')
+        setDate('')
+        setEmail('')
+        setPhone('')
+        setPass('')
+        setRepass('')
+      });
+
+      if(typeof(userData) == "undefined")
+      {
+        return;
+      }
+
+      if(userData.role === "admin")
+      {
+        setIsAdmin(true)
+      }
+      else
+      {
+        setIsAdmin(false)
+      }
+
+      localStorage.setItem("user", JSON.stringify(userData))
       setIsLogged(true)
       navigate('/home');
   }
