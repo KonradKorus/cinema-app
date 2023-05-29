@@ -10,9 +10,11 @@ import Reservation from './pages/Reservation/Reservation';
 import Profile from './pages/Profile/Profile';
 import MovieDescription from './pages/MovieDescription/MovieDescription';
 import { Divider } from '@mui/material';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
+  <AuthProvider>  
     <div className="App">
       <Navbar />
       <div style={{ marginTop: '75px' }}>
@@ -34,6 +36,7 @@ function App() {
       <Divider />
       <Footer />
     </div>
+  </AuthProvider>
   );
 }
 

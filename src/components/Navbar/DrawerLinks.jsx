@@ -5,10 +5,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+import { useAuth } from '../../contexts/AuthContext';
 
-const isAdmin = true; //mock data
+
 
 const DrawerLinks = () => {
+
+  const {isAdmin} = useAuth();
+
   const navItems = {
     home: 'Strona główna',
     repertoire: 'Repertuar',
