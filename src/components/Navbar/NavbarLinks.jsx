@@ -130,6 +130,7 @@ const NavbarLinks = () => {
                 onClick={(e) => {
                   e.preventDefault()
                   localStorage.removeItem("user")
+                  localStorage.removeItem("token")
                   setIsLogged(false)
                   navigate('/home')
                 }}
