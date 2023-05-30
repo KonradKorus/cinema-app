@@ -1,3 +1,5 @@
+import { outlinedInputClasses } from "@mui/material"
+
 export const createToken = async(email, password) =>
 {
     var data = encodeURIComponent("grant_type")
@@ -54,5 +56,32 @@ export const getUserData = async() =>
     else
     {
         return user
+    }
+}
+
+export const changePass = async(oldPass, newPass) =>
+{
+    const token = (localStorage.hasOwnProperty("token")) ? localStorage.getItem("token") : "";
+
+    const res = await fetch("http:localhost:8000/change-password",
+    {
+        method: "POST",
+        headers: 
+        {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({old: oldPass, new: newPass})
+    })
+
+    const data = res.json();
+
+    if(!data.hasOwnProperty("detail"))
+    {
+        return;
+    }
+    else
+    {
+        throw new Error(data.detail)
     }
 }

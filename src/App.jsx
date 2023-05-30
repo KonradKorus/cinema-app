@@ -14,6 +14,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ReservationDetails from './pages/ReservationDetails/ReservationDetails';
 import Movies from './pages/AdminPanel/Movies/Movies';
 import Events from './pages/AdminPanel/Events/Events';
+import ChangePassword from './pages/Profile/ChangePassword';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
             <Route path="/repertoire" element={<Repertoire />}></Route>
             <Route path="/movies" element={<Movies />}></Route>
             <Route path="/events" element={<Events />}></Route>
-
+            <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route
               path="/reservation/:eventId"
               element={<Reservation />}

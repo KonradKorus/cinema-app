@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react'
 
 const AuthContext = createContext();
 
@@ -11,6 +11,18 @@ export const AuthProvider = (props) =>
 {
     const [isLogged, setIsLogged] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.hasOwnProperty("user"))
+        {
+            setIsLogged(true)
+
+            if(JSON.parse(localStorage.getItem("user")).role === "admin")
+            {
+                setIsAdmin(true)
+            }
+        }
+    }, [])
 
     const value = 
     {
