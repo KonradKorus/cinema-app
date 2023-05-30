@@ -16,6 +16,7 @@ const Footer = () => {
           bgcolor: '#272727',
           justifyContent: 'center',
           p: 3,
+          mt: 3,
         }}
       >
         <Box
