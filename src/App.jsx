@@ -46,7 +46,6 @@ function App() {
             ></Route>
           </Routes>
         </div>
-        <Divider />
         <Footer />
       </div>
     </AuthProvider>
