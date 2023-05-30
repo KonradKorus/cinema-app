@@ -14,29 +14,33 @@ import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
-  <AuthProvider>  
-    <div className="App">
-      <Navbar />
-      <div style={{ marginTop: '75px' }}>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/home" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/admin-panel" element={<AdminPanel />}></Route>
-          <Route path="/repertoire" element={<Repertoire />}></Route>
-          <Route path="/reservation" element={<Reservation />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route
-            path="/movie-description"
-            element={<MovieDescription />}
-          ></Route>
-        </Routes>
+    <AuthProvider>
+      <div className="App">
+        <Navbar />
+        <div style={{ marginTop: '75px' }}>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/home" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/admin-panel" element={<AdminPanel />}></Route>
+            <Route path="/repertoire" element={<Repertoire />}></Route>
+
+            <Route
+              path="/reservation/:reservationId"
+              element={<Reservation />}
+            ></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route
+              path="/movie-description/:movieId"
+              element={<MovieDescription />}
+            ></Route>
+          </Routes>
+        </div>
+        <Divider />
+        <Footer />
       </div>
-      <Divider />
-      <Footer />
-    </div>
-  </AuthProvider>
+    </AuthProvider>
   );
 }
 

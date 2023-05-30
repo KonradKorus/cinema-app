@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const Reservation = () => {
-  return (
-    <div>Reservation</div>
-  )
-}
+  const { reservationId } = useParams();
 
-export default Reservation
+  return <div>Reservation/{reservationId}</div>;
+};
+
+export default Reservation;
