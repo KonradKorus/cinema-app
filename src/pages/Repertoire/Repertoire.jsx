@@ -138,6 +138,7 @@ const Repertoire = () => {
         <Button variant="contained" color="primary" onClick={handleSearch}>
           <SearchIcon />
         </Button>
+
       </Container>
 
       <h2 style={{ textAlign: 'center', fontSize: '28px', cursor: 'pointer' }}>Repertuar na dzień {selectedDate.format('DD/MM/YYYY').toLocaleString() + ""}</h2>

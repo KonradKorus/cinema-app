@@ -1,0 +1,56 @@
+
+.main{
+    font-weight: bold;
+    margin-left: 30.5%
+  }
+  
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+  
+    .seatBlack{
+      width: 40px;
+      height: 30px;
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .seatRed{
+      width: 40px;
+      height: 30px;
+      background-color: red;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+      pointer-events: none;
+    }
+    .seatGreen{
+      width: 40px;
+      height: 30px;
+      background-color: green;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+    }
+  
+    .screen {
+      width: 54.7%;
+      height: 60px;
+      margin-bottom: 2%;
+      background-color: lightgray;
+      display: flex;
+      color: black;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+    }
+  
