@@ -64,7 +64,9 @@ const Repertoire = () => {
 
 
     //biore testowy film ze zmockowanych filmow
-    const filmID = 1
+    //const filmID = 1
+    const filmID = Math.floor(Math.random() * 4) + 1;
+    console.log(filmID)
     const film = moviesMock.find((film) => film.id === filmID);
     setRepertuar([film]);
   };
@@ -156,7 +158,7 @@ const Repertoire = () => {
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Duration: {film.duration}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Subtitles: {film.subtitles}, {film.format}
                 </p>
-                <Link style={{ paddingLeft: 40 }} to="https://www.youtube.com/watch?v=Sagg08DrO5U">
+                <Link style={{ paddingLeft: 40 }} to={`/movie-description/${film.id}`}>
                   <img src={film.photo} alt={film.title} style={{ width: '180px', height: 'auto', marginTop: '50px' }} />
                 </Link>
               </Container>
