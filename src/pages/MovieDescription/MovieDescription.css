@@ -1,0 +1,30 @@
+.film-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /*.film-image {
+    flex: 0 0 auto;
+    margin-right: 20px;
+  }*/
+  
+  /*.film-image img {
+    max-width: 50%;
+  }*/
+  
+  .film-info {
+    flex: 1 1 auto;
+  }
+  
+  .film-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20%;
+  }
+  
+  .film-image img {
+    max-width: 50%;
+    max-height: 50%;
+  }
+  
