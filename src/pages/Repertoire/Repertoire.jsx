@@ -160,7 +160,7 @@ const Repertoire = () => {
                   <img src={film.photo} alt={film.title} style={{ width: '180px', height: 'auto', marginTop: '50px' }} />
                 </Link>
               </Container>
-              <Link to="/reservation">
+              <Link to={`/reservation/${film.id}`}>
                 <Button style={{ marginLeft: '40px', marginBottom: '40px' }} variant="contained" color="primary" onClick={() => handleReservationClick(film.id)}>
                   Reservation
                 </Button>
