@@ -44,11 +44,11 @@
 
   .screen {
     width: 54.7%;
-    height: 100px;
+    height: 60px;
     margin-bottom: 2%;
     background-color: lightgray;
     display: flex;
-    color: lightgray;
+    color: black;
     justify-content: center;
     align-items: center;
     border: 1px solid black;

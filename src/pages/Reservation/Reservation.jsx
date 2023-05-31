@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './seats.css'
 import Button from '../Reservation/Button'
 
@@ -12,9 +12,6 @@ const reserved = [
 ]
 
 const Reservation = () => {
-  const [showSeats, setShowSeats] = useState(false)
-
-  const handleSeatsClick = () => {setShowSeats(true)}
 
   const selectedSeats = []
   const handleSeatClick = (id, isSelected) => {isSelected ? selectedSeats.push(id) : selectedSeats.pop(id) }
@@ -62,10 +59,6 @@ const Reservation = () => {
 
   return (
     <div>
-      {!showSeats && (
-        <button onClick={handleSeatsClick}>Pokaż salę kinową</button>
-      )}
-      {showSeats && (
         <div>
           <div className='main'>
             <p>Tytul</p>
@@ -83,7 +76,6 @@ const Reservation = () => {
             <button>Zarezerwuj</button>
           </div>
         </div>
-      )}
     </div>
 
   )
