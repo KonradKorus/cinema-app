@@ -9,6 +9,7 @@ import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 //import { getDataFromEndpoint } from '../../services/getDataFromEndpoint';
 import { moviesMock } from '../../utils/moviesMock';
+import './Repertoire.css';
 
 const Repertoire = () => {
 
@@ -43,9 +44,11 @@ const Repertoire = () => {
   const [selectedCategory, setSelectedCategory] = useState('Kategoria');
   const [searchText, setSearchText] = useState('');
 
+  
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
+
 
   const filterData = (searchData) => {
     // URL ktory docelowo bedzie sluzyl do filtrowania zapytan
@@ -151,7 +154,9 @@ const Repertoire = () => {
             <li key={film.id} style={{ listStyleType: 'none', cursor: 'pointer' }}>
               <Container style={{ display: 'flex' }}>
                 <p>
-                  <h3 style={{ fontSize: '28px' }} onClick={() => handleFilmClick(film.id)}>{film.title}</h3>
+                  <Link to={`/movie-description/${film.id}`}>
+                    <h3 style={{ fontSize: '28px' }}>{film.title}</h3>
+                  </Link>
                   Date & hour: {film.date}, {film.hour}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Genre: {film.genre}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Age: {film.ageRestriction}
