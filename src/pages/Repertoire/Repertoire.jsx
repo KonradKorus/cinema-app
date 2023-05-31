@@ -39,17 +39,19 @@ const Repertoire = () => {
   //Użycie zmockowanej listy filmów
   const [repertuar, setRepertuar] = useState(moviesMock);
 
-
   const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
   const [selectedCategory, setSelectedCategory] = useState('Kategoria');
   const [searchText, setSearchText] = useState('');
+  
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
 
   const filterData = (searchData) => {
-    // Tworzymy URL na podstawie danych wyszukiwania
-    const url = `https://example.com/api/repertuar?data=${searchData.data}&kategoria=${searchData.kategoria}&tytul=${searchData.tytul}`;
+    // URL ktory docelowo bedzie sluzyl do filtrowania zapytan
+    //const url = `https://example.com/api/repertuar?data=${searchData.data}&kategoria=${searchData.kategoria}&tytul=${searchData.tytul}`;
+
+    const url = '${url}/movies/${id}'
 
     // Wywołujemy zapytanie do serwera
     fetch(url)
@@ -59,6 +61,12 @@ const Repertoire = () => {
         setRepertuar(data);
       })
       .catch(error => console.error(error));
+
+
+      //biore testowy film ze zmockowanych filmow
+      const filmID = 1
+      const film = moviesMock.find((film) => film.id === filmID);
+      setRepertuar([film]);
   };
 
   const handleSearch = () => {
