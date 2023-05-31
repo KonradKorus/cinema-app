@@ -8,9 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getDataFromEndpoint } from '../../services/getDataFromEndpoint';
+import { moviesMock } from '../../utils/moviesMock';
 
 const Repertoire = () => {
 
+  /**
+   * Docelowa funkcja do pobierania listy filmow
+   */
   /*const [repertuar, setRepertuar] = useState([]);
 
   useEffect(() => {
@@ -25,12 +29,15 @@ const Repertoire = () => {
   }, []);*/
 
   //Do celow testowych, docelowo korzystanie z funkcji powyzej
-  const [repertuar, setRepertuar] = useState([
+  /*const [repertuar, setRepertuar] = useState([
     { id: 1, title: "Matrix", hour: "15:30", date: "2023-05-17", photo: "https://fwcdn.pl/fpo/06/28/628/7685907.3.jpg", genre: "Science Fiction", ageRestriction: "16+", duration: "2h 16min", subtitles: "PL", format: "2D" },
     { id: 2, title: "Interstellar", hour: "18:00", date: "2023-05-17", photo: "https://fwcdn.pl/fpo/56/29/375629/7670122.3.jpg", genre: "Sci-Fi, Drama", ageRestriction: "13+", duration: "2h 49min", subtitles: "PL", format: "2D" },
     { id: 3, title: "Pulp Fiction", hour: "20:30", date: "2023-05-17", photo: "https://fwcdn.pl/fpo/10/39/1039/7517880.3.jpg", genre: "Crime, Drama", ageRestriction: "18+", duration: "2h 34min", subtitles: "PL", format: "2D" },
     { id: 4, title: "Incepcja", hour: "23:00", date: "2023-05-17", photo: "https://fwcdn.pl/fpo/08/91/500891/7354571.3.jpg", genre: "Action, Adventure, Sci-Fi", ageRestriction: "16+", duration: "2h 28min", subtitles: "PL", format: "2D" },
-  ]);
+  ]);*/
+
+  //Użycie zmockowanej listy filmów
+  const [repertuar, setRepertuar] = useState(moviesMock);
 
 
   const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
