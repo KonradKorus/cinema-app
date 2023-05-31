@@ -11,14 +11,17 @@ import { getDataFromEndpoint } from '../../services/getDataFromEndpoint';
 
 const Repertoire = () => {
 
-  //const [repertuar, setRepertuar] = useState([]);
+  /*const [repertuar, setRepertuar] = useState([]);
 
-  /*useEffect(() => {
-    async function fetchUser() {
-      const response = await getDataFromEndpoint('movies');
-      setRepertuar(response);
+  useEffect(() => {
+    async function fetchMovies() {
+      //const response = await getDataFromEndpoint('movies');
+
+      const response = await fetch('https://606591d5-a3a9-4272-abea-3efea2cef0fa.mock.pstmn.io/movies');
+      const data = await response.json();
+      setRepertuar(data);
     }
-    fetchUser();
+    fetchMovies();
   }, []);*/
 
   //Do celow testowych, docelowo korzystanie z funkcji powyzej
@@ -37,7 +40,7 @@ const Repertoire = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const fetchData = (searchData) => {
+  const filterData = (searchData) => {
     // Tworzymy URL na podstawie danych wyszukiwania
     const url = `https://example.com/api/repertuar?data=${searchData.data}&kategoria=${searchData.kategoria}&tytul=${searchData.tytul}`;
 
@@ -61,7 +64,7 @@ const Repertoire = () => {
     };
 
     // Wywołaj funkcję pobierającą dane z odpowiednim zapytaniem
-    fetchData(searchData);
+    filterData(searchData);
     console.log('Wyszukiwanie...');
   };
 
