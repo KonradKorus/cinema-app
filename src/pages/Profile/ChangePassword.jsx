@@ -14,15 +14,35 @@ const ChangePassword = () => {
     const onSubmit = async(e) =>
     {
         e.preventDefault()
-        await changePass(oldPass, pass)
+
+        if(oldPass === pass)
+        {
+            alert("Stare i nowe hasło są takie same")
+            setError(true)
+            return
+        }
+        if(pass !== repeatPass)
+        {
+            alert("Podane nowe hasła różnią się")
+            setError(true)
+            return
+        }
+
+
+        const data = await changePass(oldPass, pass)
         .catch((e) => {
             alert("ERROR: " + e.message)
             setOldPass("")
             setPass("")
             setRepeatPass("")
             setError(true)
-            return;
+            return
         })
+
+        if(typeof(data) == "undefined")
+        {
+            return;
+        }
 
         navigate("/home")
     }

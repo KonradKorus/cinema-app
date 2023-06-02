@@ -16,6 +16,8 @@ import Movies from './pages/AdminPanel/Movies/Movies';
 import Events from './pages/AdminPanel/Events/Events';
 import ChangePassword from './pages/Profile/ChangePassword';
 import EditProfile from './pages/Profile/EditProfile';
+import ResetPassword from './pages/Login/ResetPassword';
+import ForgotPassword from './pages/Login/ForgotPassword';
 
 function App() {
   return (
@@ -35,6 +37,11 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/edit-profile" element={<EditProfile />}></Route>
             <Route path="/change-password" element={<ChangePassword/>}></Route>
+            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+            <Route 
+              path="/reset-password/:resetToken"
+              element = {<ResetPassword/>}
+            ></Route>
             <Route
               path="/reservation/:eventId"
               element={<Reservation />}
