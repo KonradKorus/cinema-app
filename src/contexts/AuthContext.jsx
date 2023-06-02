@@ -13,7 +13,7 @@ export const AuthProvider = (props) =>
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        if(localStorage.hasOwnProperty("user"))
+        if(localStorage.hasOwnProperty("token") && localStorage.hasOwnProperty("user"))
         {
             setIsLogged(true)
 
@@ -29,7 +29,7 @@ export const AuthProvider = (props) =>
         isLogged,
         setIsLogged,
         isAdmin,
-        setIsAdmin
+        setIsAdmin,
     }
     
     return (

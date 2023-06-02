@@ -58,6 +58,32 @@ export const getUserData = async() =>
         return user
     }
 }
+export const editUser = async(user, id) =>
+{
+    const token = localStorage.getItem("token")
+
+    const res = await fetch(`http://localhost:8000/users/${id}`, 
+    {
+        method: "PUT",
+        headers: 
+        {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    })
+
+    const data = await res.json();
+
+    if(!data.hasOwnProperty("email"))
+    {
+        throw new Error(data.detail)
+    }
+    else
+    {
+        return data
+    }
+}
 
 export const changePass = async(oldPass, newPass) =>
 {

@@ -5,8 +5,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  const {isEdit, setIsEdit} = useState(false)
   const user = JSON.parse(localStorage.getItem("user"))
+
 
   const date = () =>
   {
@@ -30,9 +30,11 @@ const Profile = () => {
           src=""
         />
         <Box mt={'10%'}>
-          <Button>
-            Edytuj Profil
-          </Button>
+          <Link to="/edit-profile">
+            <Button>
+              Edytuj Profil
+            </Button>
+          </Link>
           <Link to="/change-password">
             <Button>
               Zmień hasło

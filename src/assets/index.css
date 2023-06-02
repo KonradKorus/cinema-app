@@ -12,7 +12,14 @@ code {
     monospace;
 }
 
-
+::-webkit-calendar-picker-indicator
+{
+  filter: invert(1)
+  brightness(10%)
+  sepia(100%)
+  saturate(10000%)
+  hue-rotate(330deg)
+}
 
 a{
   text-decoration: none;
