@@ -194,3 +194,30 @@ export const resetPass = async(email, token, pass) =>
         throw new Error(data.detail)
     }
 }
+
+export const deleteUser = async(user, id) =>
+{
+    const token = localStorage.getItem("token")
+
+    const res = await fetch(`http://localhost:8000/users/${id}`, 
+    {
+        method: "DELETE",
+        headers: 
+        {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    })
+
+    const data = await res.json();
+
+    if(!data.hasOwnProperty("detail"))
+    {
+        return data
+    }
+    else
+    {
+        throw new Error(data.detail)
+    }
+}

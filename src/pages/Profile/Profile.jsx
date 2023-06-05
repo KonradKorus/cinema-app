@@ -1,8 +1,9 @@
-import { Container, Typography, TextField, Box, Grid, Card, Avatar, Button } from '@mui/material'
+import { Container, Typography, TextField, Box, Grid, Card, Avatar, Button, Modal } from '@mui/material'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import DeleteModal from './DeleteModal'
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"))
@@ -41,6 +42,7 @@ const Profile = () => {
             </Button>
           </Link>
         </Box>
+        <DeleteModal/>
       </Grid>
       <Grid sx={{justifyContent:"space-around"}}>
         <Box sx={{display: "block", marginLeft: '5%'}}>
