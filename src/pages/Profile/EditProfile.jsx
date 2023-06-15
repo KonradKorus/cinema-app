@@ -40,6 +40,7 @@ const EditProfile = () => {
             email: email,
             phone: phone,
             image_url: avatar
+            phone: phone
         }
 
         console.log(edit)
@@ -61,7 +62,6 @@ const EditProfile = () => {
         navigate("/profile")
     }
 
-
     return (
             <Container sx={{display:"flex", justifyContent: "space-evenly", alignItems:"center" ,marginTop:'10%', marginBottom: '10%'}}>
                 <form style={{display: "flex", width:500, justifyContent:"stretch"}} onSubmit={onSubmit}>
@@ -71,7 +71,6 @@ const EditProfile = () => {
                         sx={{width: 150, height: 150}}
                         src={avatar}
                         />
-                        <AvatarModal OnSubmit={setAvatar}/>
                     </Grid>
                     <Grid sx={{display:"block", justifyContent:"stretch", marginLeft: '10%'}}>
                         <Box sx={{display:"flex"}}>

@@ -76,7 +76,6 @@ const Profile = () => {
             Moje rezerwacje
           </Typography>
         </Grid>
-    </Container>
   )
 }
 
