@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { editUser } from '../../hooks/hook'
+import AvatarModal from './AvatarModal'
 
 const EditProfile = () => {
     const user = JSON.parse(localStorage.getItem("user"))
@@ -15,6 +16,7 @@ const EditProfile = () => {
     const [email, setEmail] = useState("")
     const [date, setDate] = useState("")
     const [phone, setPhone] = useState("")
+    const [avatar, setAvatar] = useState("")
 
     useEffect((e) => 
     {
@@ -23,6 +25,7 @@ const EditProfile = () => {
         setEmail(user.email);
         setDate(user.date_of_birth.split("T")[0])
         setPhone(user.phone)
+        setAvatar(user.image_url)
     }, [])
 
     const onSubmit = async(e) => 
@@ -35,7 +38,8 @@ const EditProfile = () => {
             last_name: lname,
             date_of_birth: date + "T" + user.date_of_birth.split("T")[1],
             email: email,
-            phone: phone
+            phone: phone,
+            image_url: avatar
         }
 
         console.log(edit)
@@ -49,12 +53,14 @@ const EditProfile = () => {
             setDate("")
             setEmail("")
             setPhone("")
+            setAvatar("")
             return;
         })
 
         localStorage.setItem("user", JSON.stringify(res))
         navigate("/profile")
     }
+
 
     return (
             <Container sx={{display:"flex", justifyContent: "space-evenly", alignItems:"center" ,marginTop:'10%', marginBottom: '10%'}}>
@@ -63,8 +69,9 @@ const EditProfile = () => {
                         <Avatar
                         variant = "square" 
                         sx={{width: 150, height: 150}}
-                        src=""
+                        src={avatar}
                         />
+                        <AvatarModal OnSubmit={setAvatar}/>
                     </Grid>
                     <Grid sx={{display:"block", justifyContent:"stretch", marginLeft: '10%'}}>
                         <Box sx={{display:"flex"}}>
@@ -129,7 +136,7 @@ const EditProfile = () => {
                             <TextField 
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
-                                type="number"
+                                type="tel"
                             />
                         </Box>
                         <Button

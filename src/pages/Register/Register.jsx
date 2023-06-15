@@ -28,6 +28,7 @@ const Register = () => {
       date_of_birth: date + "T00:00:0.000Z",
       email: email,
       phone: phone,
+      image_url: "",
       password: pass
     }
 
