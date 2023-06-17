@@ -1,4 +1,5 @@
-import { Box, Container, Grid, Typography, Button } from '@mui/material'
+import { Box, Container, Grid, Typography, Button} from '@mui/material'
+import { Link } from 'react-router-dom';
 import React from 'react'
 
 const ReservationProfile = ({Reservation}) => {
@@ -29,9 +30,11 @@ const ReservationProfile = ({Reservation}) => {
             </Typography>
           </Box>
           <Box sx={{marginTop: "1%"}}>
-            <Button>
-              Szczegóły
-            </Button>
+            <Link to={"/reservation-details/" + Reservation.id}>
+              <Button>
+                Szczegóły
+              </Button>
+            </Link>
             <Button>
               Anuluj rezerwacje
             </Button>

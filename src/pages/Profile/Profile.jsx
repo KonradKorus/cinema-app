@@ -10,6 +10,7 @@ import DeleteModal from './DeleteModal'
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"))
   const [res, setRes] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => 
   {
@@ -20,8 +21,12 @@ const Profile = () => {
       {
         alert(e.message);
       })
-
-      setRes(get.items)
+      
+      if(typeof(get) != undefined)
+      {
+        setRes(get.items)
+        setLoaded(true)
+      }
     }
     getRes();
   }, [])
@@ -92,7 +97,16 @@ const Profile = () => {
           >
             Moje rezerwacje
           </Typography>
+          {loaded ? (
           <ListReservationsProfile Reservations={res}/>
+          ) : (
+            <Typography
+              sx = {{marginLeft: "2%", marginTop: "2%"}}
+              variant='h4'
+              >
+                Loading...
+              </Typography>
+          )}
         </Grid>
     </Container>
   )
