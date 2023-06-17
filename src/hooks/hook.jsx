@@ -56,3 +56,22 @@ export const getUserData = async() =>
         return user
     }
 }
+
+export const getMovies = async() =>
+{
+    const token =localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:8000/movie",
+        {
+            method: "GET",
+            headers:
+                {
+                    "Content-type": "application/json",
+                   "Authorization": `Bearer ${token}`
+                }
+        }
+    )
+    const data = await res.json();
+
+    return data;
+}

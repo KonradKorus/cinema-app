@@ -32,8 +32,16 @@ function App() {
               <Route path="/repertoire" element={<Repertoire />}></Route>
               <Route path="/movies" element={<Movies />}></Route>
               <Route path="/events" element={<Events />}></Route>
-              <Route path="/MovieForm" element={<MovieForm />}></Route>
-              <Route path="/EventForm" element={<EventForm />}></Route>
+
+              <Route
+                  path="/MovieForm/:movieId"
+                  element={<MovieForm />}
+              ></Route>
+
+              <Route
+                  path="/EventForm/:eventId"
+                  element={<EventForm />}
+              ></Route>
 
               <Route
                   path="/reservation/:eventId"

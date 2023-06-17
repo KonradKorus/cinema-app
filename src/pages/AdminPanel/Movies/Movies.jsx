@@ -1,11 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
 import { moviesMock } from '../../../utils/moviesMock';
+import { getMovies } from '../../../hooks/hook';
 
+
+//console.log(data)
 const Movies = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getMovies();
+        console.log(data.items)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [searchText, setSearchText] = useState('');
   const [filteredMovies, setFilteredMovies] = useState(moviesMock);
 
@@ -48,7 +64,7 @@ const Movies = () => {
             <SearchIcon />
           </Button>
           <div style={{ marginLeft: 'auto' }}>
-            <Link to="/MovieForm">
+            <Link to="/MovieForm/0">
               <Button variant="contained" color="primary">
                 Dodaj film
               </Button>
@@ -64,12 +80,12 @@ const Movies = () => {
                   <Button variant="contained" color="primary">
                     Usun
                   </Button>
-                  <Link to="/MovieForm">
+                  <Link to={`/MovieForm/${movie.id}`}>
                     <Button variant="contained" color="primary">
                       Edytuj
                     </Button>
                   </Link>
-                  <Link to="/EventForm">
+                  <Link to={`/EventForm/${movie.id}`}>
                     <Button variant="contained" color="primary">
                       Stworz wydarzenie
                     </Button>
