@@ -221,3 +221,30 @@ export const deleteUser = async(user, id) =>
         throw new Error(data.detail)
     }
 }
+
+export const getUserReservations = async(id) =>
+{
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`http://localhost:8000/reservations?user_id=${id}&page=1&size=50`,
+        {
+            method: "GET",
+            headers:
+            {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    )
+
+    const reservations = await res.json();
+
+    if(reservations.hasOwnProperty("detail"))
+    {
+        throw new Error(reservations.detail)
+    }
+    else
+    {
+        return reservations;
+    }
+}

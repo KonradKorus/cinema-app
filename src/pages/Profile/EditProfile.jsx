@@ -39,7 +39,7 @@ const EditProfile = () => {
             date_of_birth: date + "T" + user.date_of_birth.split("T")[1],
             email: email,
             phone: phone,
-            image_url: avatar
+            image_url: avatar,
             phone: phone
         }
 

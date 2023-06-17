@@ -3,11 +3,28 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getUserReservations } from '../../hooks/hook'
+import ListReservationsProfile from '../Reservation/ListReservationsProfile'
 import DeleteModal from './DeleteModal'
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"))
+  const [res, setRes] = useState([]);
 
+  useEffect(() => 
+  {
+    const getRes = async() =>
+    {
+      const get = await getUserReservations(user.id)
+      .catch((e) => 
+      {
+        alert(e.message);
+      })
+
+      setRes(get.items)
+    }
+    getRes();
+  }, [])
 
   const date = () =>
   {
@@ -75,7 +92,9 @@ const Profile = () => {
           >
             Moje rezerwacje
           </Typography>
+          <ListReservationsProfile Reservations={res}/>
         </Grid>
+    </Container>
   )
 }
 
