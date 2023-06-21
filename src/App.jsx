@@ -39,7 +39,7 @@ function App() {
               ></Route>
 
               <Route
-                  path="/EventForm/:eventId"
+                  path="/EventForm/:movieId/:eventId"
                   element={<EventForm />}
               ></Route>
 

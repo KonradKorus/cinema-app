@@ -1,56 +1,84 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, TextField } from '@mui/material';
+import { Button, Container, TextField, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
-import { moviesMock } from '../../../utils/moviesMock';
-import { getMovies } from '../../../hooks/hook';
+import {getMovies, deleteMovie, deleteRepertoire} from '../../../hooks/hook';
 
-
-//console.log(data)
 const Movies = () => {
+  const [movies, setMovies] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [movieIdToDelete, setMovieIdToDelete] = useState(null);
+  const [deleteConfirmationDialog, setDeleteConfirmationDialog] = useState(false);
+  const [refreshPage, setRefreshPage] = useState(false);
+
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getMovies();
-        console.log(data.items)
-      } catch (error) {
-        console.error(error);
-      }
+      const data = await getMovies();
+      setMovies(data.items);
+      setFilteredMovies(data.items);
     };
-
     fetchData();
-  }, []);
-
-  const [searchText, setSearchText] = useState('');
-  const [filteredMovies, setFilteredMovies] = useState(moviesMock);
+    if (refreshPage) {
+      setRefreshPage(false); // Ustawienie wartości refreshPage na false, aby uniknąć zapętlenia
+      fetchData();
+    }
+  }, [refreshPage]);
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const handleSearchSubmit = () => {
-    filterMovies();
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      filterMovies();
-    }
-  };
-
-  const filterMovies = () => {
-    const filtered = moviesMock.filter((movie) =>
+    const filtered = movies.filter((movie) =>
         movie.title.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredMovies(filtered);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearchSubmit();
+    }
+  };
+
+  const handleDeleteClick = (id) => {
+    setMovieIdToDelete(parseInt(id));
+    setDialogMessage("Czy na pewno usunąć film?");
+    setDeleteConfirmationDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setDeleteConfirmationDialog(false);
+  };
+
+  const handleOkayClick = (id) => {
+    handleCloseDialog();
+    deleteRepertoire(parseInt(id));
+    deleteMovie(parseInt(id))
+        .then(statement => {
+          setDialogMessage((statement));
+          setOpenDialog(true);
+          setRefreshPage(true); // Ustawienie stanu refreshPage na true
+        })
+        .catch(error => {
+          console.error(error);
+          setDialogMessage("Wystąpił błąd podczas usuwania filmu");
+          setOpenDialog(true);
+        });
+  };
+
+
   return (
-      <div>
+      <div style={{minHeight: '822px'}}>
         <Container sx={{ display: 'flex', textAlign: 'left', marginBottom: '1%', flexDirection: 'row', marginLeft: '30%' }}>
           <Link to="/admin-panel">
-            <Button variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button variant="outlined" color="primary" style={{ marginTop: '10px' }}>
               <ArrowBackIcon />
             </Button>
           </Link>
@@ -76,17 +104,17 @@ const Movies = () => {
               <div key={movie.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1%' }}>
                 <span style={{ display: 'inline-block' }}>{index + 1}.</span>
                 <span style={{ flexGrow: 1, marginLeft: '1rem', fontWeight: 'bold' }}>{movie.title}</span>
-                <div style={{ display: 'flex', gap: '1rem'}}>
-                  <Button variant="contained" color="primary">
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <Button key={movie.id} variant="outlined" color="primary" onClick={() => handleDeleteClick(movie.id)}>
                     Usun
                   </Button>
                   <Link to={`/MovieForm/${movie.id}`}>
-                    <Button variant="contained" color="primary">
+                    <Button variant="outlined" color="primary">
                       Edytuj
                     </Button>
                   </Link>
-                  <Link to={`/EventForm/${movie.id}`}>
-                    <Button variant="contained" color="primary">
+                  <Link to={`/EventForm/${movie.id}/0`}>
+                    <Button variant="outlined" color="primary">
                       Stworz wydarzenie
                     </Button>
                   </Link>
@@ -94,6 +122,19 @@ const Movies = () => {
               </div>
           ))}
         </Container>
+        <Dialog open={deleteConfirmationDialog} onClose={handleCloseDialog} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <DialogTitle style={{ fontWeight: 'bold', textAlign: 'center' }}>{dialogMessage}</DialogTitle>
+          <DialogContent style={{ textAlign: 'center' }}>
+            Wszystkie dane powiązane z tym filmem zostaną utracone
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+              <Button variant="contained" color="primary" onClick={handleCloseDialog}>Anuluj</Button>
+              <Button variant="contained" color="primary" onClick={() => handleOkayClick(movieIdToDelete)}>OK</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+        <Dialog open={openDialog} onClose={handleCloseDialog} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <DialogTitle style={{ fontWeight: 'bold', textAlign: 'center' }}>{dialogMessage}</DialogTitle>
+        </Dialog>
       </div>
   );
 };
