@@ -10,17 +10,24 @@ const MovieDescription = () => {
 
   if (!film) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
         <h1>Film not found</h1>
       </div>
     );
   }
 
   return (
-    <div className='main-container'>
-      <div className='upper-container'>
+    <div className="main-container">
+      <div className="upper-container">
         <img src={film.photo} alt={film.title} />
-        <div className='whole-info-container'>
+        <div className="whole-info-container">
           <div className="film-info">
             <h2>{film.title}</h2>
             <p>Kategoria: {film.genre}</p>
@@ -35,10 +42,18 @@ const MovieDescription = () => {
       </div>
 
       <div className="film-player">
-        <YouTube videoId={film.trailerLink} />
+        <iframe
+          width="560"
+          height="315"
+          src={film.trailerLink}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
-    </div >
+    </div>
   );
-}
+};
 
 export default MovieDescription;
