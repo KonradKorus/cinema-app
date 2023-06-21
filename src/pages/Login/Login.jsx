@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { TextField, Container, Typography, Button } from '@mui/material'
 import { createToken, getUserData } from '../../hooks/hook'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 const Login = () => {
@@ -64,8 +64,9 @@ const Login = () => {
     <form className='register-form' onSubmit={onSubmit}>
       <Typography 
         variant="h3"
-        marginBottom={3}
-        marginTop={3}
+        marginBottom={'3%'}
+        marginLeft={'13%'}
+        marginTop={'3%'}
       >Zaloguj się</Typography>  
       <Container sx={{justifyContent: "center", marginLeft: 2.5}}>
         <div className='form-control'>
@@ -99,10 +100,19 @@ const Login = () => {
         <Button 
           type='submit' 
           variant='outlined' 
-          sx={{color: "#fff", marginTop: 1, marginLeft: 5}}
+          sx={{color: "#fff", marginTop: '10%', marginLeft: '25%'}}
         >Zaloguj</Button>
       </Container>
+      <Link to="/forgot-password">
+          <Button
+            variant='outlined'
+            sx={{color: "#fff", marginTop: '5%',marginLeft: '20%'}}
+            >
+            Zapomniałem hasła
+          </Button>
+        </Link>
     </form>
+
   </Container>
 )
 }

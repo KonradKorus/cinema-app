@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Box, Button } from '@mui/material';
+import { Avatar, Box, Button } from '@mui/material';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import PersonIcon from '@mui/icons-material/Person';
@@ -116,7 +116,7 @@ const NavbarLinks = () => {
               >
                 <Button
                   sx={{ color: '#fff', px: 2 }}
-                  startIcon={<PersonIcon />}
+                  startIcon={<Avatar src={(JSON.parse(localStorage.getItem("user"))).image_url} variant="square" sx={{maxWidth: 25, maxHeight: 25}} />}
                 >
                   {
                     JSON.parse(localStorage.getItem("user")).first_name + " " + JSON.parse(localStorage.getItem("user")).last_name

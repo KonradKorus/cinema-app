@@ -34,7 +34,7 @@ export const moviesMock = [
     title: 'Pulp Fiction',
     hour: '20:30',
     date: '2023-05-17',
-    photo: 'https://fwcdn.pl/fpo/10/39/1039/7517880.3.jpg',
+    photo: 'https://www.youtube.com/watch?v=Sagg08DrO5U',
     genre: 'Crime, Drama',
     ageRestriction: '18+',
     duration: '2h 34min',
