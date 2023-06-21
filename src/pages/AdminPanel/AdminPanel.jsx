@@ -1,9 +1,30 @@
-import React from 'react'
+import React from 'react';
+import { Button, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const AdminPanel = () => {
   return (
-    <div>AdminPanel</div>
-  )
-}
+      <div style={{minHeight: '822px'}}>
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
+          <Grid item container direction="column" spacing={2} alignItems="center">
+            <Grid item>
+                <Link to = '/Movies'>
+                  <Button variant="contained" color="primary" style={{ width: '200px' }}>
+                    Zadządzanie dostępnymi filmami
+                  </Button>
+                 </Link>
+            </Grid>
+            <Grid item>
+                <Link to = '/Events'>
+                  <Button variant="contained" color="primary" style={{ width: '200px' }}>
+                    Zarządzanie wydarzeniami
+                  </Button>
+                 </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+  );
+};
 
-export default AdminPanel
+export default AdminPanel;
