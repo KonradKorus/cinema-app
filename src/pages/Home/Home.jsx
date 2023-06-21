@@ -41,6 +41,7 @@ const Home = () => {
         <Typography sx={{ fontSize: '22px', mb: 3 }}>Nowości:</Typography>
         <Carousel sx={{ bgColor: 'pink' }}>
           {movies !== null &&
+            movies.items &&
             movies.items.map((movie, index) => {
               let prevIndex = index === 0 ? movies.items.length - 1 : index - 1;
               let nextIndex = index === movies.items.length - 1 ? 0 : index + 1;
@@ -53,7 +54,9 @@ const Home = () => {
                   }}
                 >
                   <Link
-                    href={'movie-description/' + movies.items[prevIndex].id}
+                    href={
+                      'movie-description/' + movies.items[prevIndex].movie_id
+                    }
                     sx={{
                       '&:hover': {
                         transform: 'scale(1.05)',
@@ -72,7 +75,7 @@ const Home = () => {
                     />
                   </Link>
                   <Link
-                    href={'movie-description/' + movie.id}
+                    href={'movie-description/' + movie.movie_id}
                     sx={{
                       '&:hover': {
                         transform: 'scale(1.05)',
@@ -86,7 +89,9 @@ const Home = () => {
                     />
                   </Link>
                   <Link
-                    href={'movie-description/' + movies.items[nextIndex].id}
+                    href={
+                      'movie-description/' + movies.items[nextIndex].movie_id
+                    }
                     sx={{
                       '&:hover': {
                         transform: 'scale(1.05)',
@@ -116,7 +121,8 @@ const Home = () => {
           }}
         >
           <Grid container spacing={3}>
-            {movies !== null &&
+            {movies &&
+              movies.items &&
               movies.items.map((movie) => (
                 <Grid
                   key={movie.id}
@@ -132,8 +138,13 @@ const Home = () => {
                     justifyContent: 'center',
                   }}
                 >
+                  {console.log(
+                    movie.repertoire &&
+                      movie.repertoire.movie &&
+                      movie.repertoire.movie.id
+                  )}
                   <Link
-                    href={'movie-description/' + movie.id}
+                    href={'movie-description/' + movie.movie_id}
                     sx={{
                       '&:hover': {
                         transform: 'scale(1.05)',

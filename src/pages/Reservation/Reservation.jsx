@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Button, Dialog, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import {
   getScreeningById,
   getReservedBookSeats,
   addReservation,
   deleteScreening,
 } from '../../hooks/hook';
-
 const Reservation = () => {
+  const navigate = useNavigate();
+
+  if (localStorage.getItem('user') === null) {
+    navigate('/login');
+  }
+
   const { eventId } = useParams();
   const [movie, setMovie] = useState([]);
   const [event, setEvent] = useState([]);
