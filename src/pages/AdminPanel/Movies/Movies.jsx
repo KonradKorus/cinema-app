@@ -57,14 +57,15 @@ const Movies = () => {
     setDeleteConfirmationDialog(false);
   };
 
-  const handleOkayClick = (id) => {
+  const handleOkayClick = async(id) => {
     handleCloseDialog();
-    deleteRepertoire(parseInt(id));
+    await deleteRepertoire(parseInt(id));
+
     deleteMovie(parseInt(id))
         .then(statement => {
           setDialogMessage((statement));
           setOpenDialog(true);
-          setRefreshPage(true); // Ustawienie stanu refreshPage na true
+          setRefreshPage(true);
         })
         .catch(error => {
           console.error(error);

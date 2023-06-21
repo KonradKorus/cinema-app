@@ -436,7 +436,8 @@ export const addReservation = async(data) =>
         }
     } catch (error) {
         return 'Wystąpił błąd'
-
+    }
+}
 export const editUser = async(user, id) =>
 {
     const token = localStorage.getItem("token")
