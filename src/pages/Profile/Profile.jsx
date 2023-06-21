@@ -3,11 +3,33 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getUserReservations } from '../../hooks/hook'
+import ListReservationsProfile from '../Reservation/ListReservationsProfile'
 import DeleteModal from './DeleteModal'
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"))
+  const [res, setRes] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
+  useEffect(() => 
+  {
+    const getRes = async() =>
+    {
+      const get = await getUserReservations(user.id)
+      .catch((e) => 
+      {
+        alert(e.message);
+      })
+      
+      if(typeof(get) != undefined)
+      {
+        setRes(get.items)
+        setLoaded(true)
+      }
+    }
+    getRes();
+  }, [])
 
   const date = () =>
   {
@@ -75,7 +97,18 @@ const Profile = () => {
           >
             Moje rezerwacje
           </Typography>
+          {loaded ? (
+          <ListReservationsProfile Reservations={res}/>
+          ) : (
+            <Typography
+              sx = {{marginLeft: "2%", marginTop: "2%"}}
+              variant='h4'
+              >
+                Loading...
+              </Typography>
+          )}
         </Grid>
+    </Container>
   )
 }
 
