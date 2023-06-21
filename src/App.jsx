@@ -14,8 +14,13 @@ import { AuthProvider } from './contexts/AuthContext';
 import ReservationDetails from './pages/ReservationDetails/ReservationDetails';
 import Movies from './pages/AdminPanel/Movies/Movies';
 import Events from './pages/AdminPanel/Events/Events';
+import ChangePassword from './pages/Profile/ChangePassword';
+import EditProfile from './pages/Profile/EditProfile';
+import ResetPassword from './pages/Login/ResetPassword';
+import ForgotPassword from './pages/Login/ForgotPassword';
 import MovieForm from './pages/AdminPanel/MovieForm/MovieForm';
 import EventForm from './pages/AdminPanel/EventForm/EventForm';
+
 
 function App() {
   return (
@@ -24,6 +29,8 @@ function App() {
           <Navbar />
           <div style={{ marginTop: '75px' }}>
             <Routes>
+    
+    
               <Route path="/" element={<Home />}></Route>
               <Route path="/home" element={<Home />}></Route>
               <Route path="/login" element={<Login />}></Route>
@@ -32,6 +39,15 @@ function App() {
               <Route path="/repertoire" element={<Repertoire />}></Route>
               <Route path="/movies" element={<Movies />}></Route>
               <Route path="/events" element={<Events />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/edit-profile" element={<EditProfile />}></Route>
+              <Route path="/change-password" element={<ChangePassword/>}></Route>
+              <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+
+        <Route 
+              path="/reset-password/:resetToken"
+              element = {<ResetPassword/>}
+            ></Route>
 
               <Route
                   path="/MovieForm/:movieId"
