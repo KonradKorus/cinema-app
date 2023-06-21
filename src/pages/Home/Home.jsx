@@ -116,46 +116,47 @@ const Home = () => {
           }}
         >
           <Grid container spacing={3}>
-            {movies.items.map((movie) => (
-              <Grid
-                key={movie.id}
-                item
-                xs={6}
-                sm={6}
-                md={3}
-                lg={3}
-                xl={2}
-                sx={{
-                  display: 'flex',
-                  width: '100%',
-                  justifyContent: 'center',
-                }}
-              >
-                <Link
-                  href={'movie-description/' + movie.id}
+            {movies !== null &&
+              movies.items.map((movie) => (
+                <Grid
+                  key={movie.id}
+                  item
+                  xs={6}
+                  sm={6}
+                  md={3}
+                  lg={3}
+                  xl={2}
                   sx={{
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                      transition: '0.5s',
-                    },
+                    display: 'flex',
+                    width: '100%',
+                    justifyContent: 'center',
                   }}
                 >
-                  <img
-                    style={{
-                      width: '175px',
+                  <Link
+                    href={'movie-description/' + movie.id}
+                    sx={{
                       '&:hover': {
                         transform: 'scale(1.05)',
                         transition: '0.5s',
                       },
                     }}
-                    src={movie.image}
-                  />
-                  <Typography style={{ textAlign: 'center' }}>
-                    {movie.title}
-                  </Typography>
-                </Link>
-              </Grid>
-            ))}
+                  >
+                    <img
+                      style={{
+                        width: '175px',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                          transition: '0.5s',
+                        },
+                      }}
+                      src={movie.image}
+                    />
+                    <Typography style={{ textAlign: 'center' }}>
+                      {movie.title}
+                    </Typography>
+                  </Link>
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Box>
