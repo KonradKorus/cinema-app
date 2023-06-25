@@ -9,6 +9,9 @@ import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './Repertoire.css';
 import Moment from 'moment'
+import axios from 'axios';
+
+
 
 const Repertoire = () => {
   const [repertuar, setRepertuar] = useState([]);
@@ -63,6 +66,29 @@ const Repertoire = () => {
     setSelectedDate(data);
   };
 
+  const findCategoryName = async (categoryId) => {
+  try {
+    const response = await axios.get(`/category/${categoryId}`);
+    const categoryData = response.data;
+    return categoryData.name;
+  } catch (error) {
+    console.error('Błąd podczas pobierania nazwy kategorii:', error);
+    return '';
+  }
+};
+
+useEffect(() => {
+  const fetchCategoryName = async () => {
+    const categoryName = await findCategoryName(film.repertoire.movie.category_id);
+    setCategoryName(categoryName);
+  };
+
+  fetchCategoryName();
+}, [film.repertoire.movie.category_id]);
+
+
+  const [categoryName, setCategoryName] = useState('');
+
 
   return (
     <div>
@@ -102,7 +128,7 @@ const Repertoire = () => {
                     <h3 style={{ fontSize: '28px' }}>{film.repertoire.movie.title}</h3>
                   </Link>
                   Data & godzina: {Moment(film.start_time).format('DD/MM/YYYY, HH:mm')}
-                  <hr style={{ width: '400px', marginLeft: 0 }} /> Gatunek: {film.repertoire.movie.category_id}
+                  <hr style={{ width: '400px', marginLeft: 0 }} /> Gatunek: {categoryName}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Wiek: {film.repertoire.movie.age_restrictions}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Czas trwania: {film.repertoire.movie.duration_minutes}
                   <hr style={{ width: '400px', marginLeft: 0 }} /> Napisy: {film.translation}
