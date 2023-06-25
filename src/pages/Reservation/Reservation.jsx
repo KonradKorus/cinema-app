@@ -1,112 +1,203 @@
 import React, { useEffect, useState } from 'react';
-import './seats.css'
-import Button from '../Reservation/Button'
-import { useParams } from 'react-router-dom'
-import { moviesMock } from '../../utils/moviesMock';
-import { Container } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { Container, Button, Dialog, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-const reserved = [
-  { row: 4, seat: 11 },
-  { row: 3, seat: 1 },
-  { row: 5, seat: 6 },
-  { row: 1, seat: 5 },
-  { row: 3, seat: 7 },
-  { row: 3, seat: 8 }
-]
+import {
+  getScreeningById,
+  getReservedBookSeats,
+  addReservation,
+  deleteScreening,
+} from '../../hooks/hook';
 
 const Reservation = () => {
-  const { eventId } = useParams(); // Pobranie id z adresu URL
-  const [movie, setMovie] = useState(null); // Stan przechowujący dane filmu
-
-  // Znajdowanie filmu na podstawie eventId
-  const findMovieById = (id) => {
-    return moviesMock.find(movie => movie.id === parseInt(id));
-  };
-
-  // Efekt pobierający dane filmu na podstawie eventId
+  const { eventId } = useParams();
+  const [movie, setMovie] = useState([]);
+  const [event, setEvent] = useState([]);
+  const [translation, setTranslation] = useState([]);
+  const [reservedSeats, setReservedSeats] = useState([]);
+  const [date, setDate] = useState();
+  const [hour, setHour] = useState();
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [buttonColors, setButtonColors] = useState(Array(72).fill('#282828'));
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
   useEffect(() => {
-    const selectedMovie = findMovieById(eventId);
-    setMovie(selectedMovie);
-  }, [eventId]);
-
-  const selectedSeats = [];
-  const handleSeatClick = (id, isSelected) => { isSelected ? selectedSeats.push(id) : selectedSeats.pop(id) };
-
-  const findReservedSeatsID = (seats) => {
-    const reservedSeats = seats.map((element) => (element.row - 1) * 12 + element.seat);
-    return reservedSeats;
-  };
-
-  const renderRow = (rowNumber) => {
-    const seats = [];
-    for (let i = 0; i < 12; i++) {
-      const id = rowNumber * 12 + i + 1;
-      seats.push(
-        <Button
-          key={id}
-          id={id}
-          className='seatBlack'
-          text={i}
-          handleSeatClick={handleSeatClick}
-        />
-      );
-    }
-
-    const reservedSeats = findReservedSeatsID(reserved);
-
-    const updatedSeats = seats.map((button) => {
-      if (reservedSeats.includes(button.props.id)) {
-        return React.cloneElement(button, { className: 'seatRed' });
-      } else {
-        return button;
+    const fetchData = async () => {
+      const data = await getScreeningById(parseInt(eventId));
+      const seats = await getReservedBookSeats(parseInt(eventId));
+      setReservedSeats(seats);
+      console.log(selectedSeats);
+      if (data) {
+        setEvent(data);
+        setMovie(data.repertoire.movie);
+        setDate(data.start_time.split('T')[0]);
+        setHour(
+          data.start_time.split('T')[1].split(':')[0] +
+            ':' +
+            data.start_time.split('T')[1].split(':')[1]
+        );
+        if (event.translation === 'SUBTITLES') setTranslation('Napisy');
+        if (event.translation === 'DUBBING') setTranslation('Dubbing');
+        if (event.translation === 'VOICE_OVER') setTranslation('Lektor');
       }
+    };
+    fetchData();
+  }, [eventId, translation, date, hour]);
+
+  const isSeatReserved = (row, col) => {
+    return reservedSeats.some(
+      (seat) => seat.row_number === row && seat.seat_number === col
+    );
+  };
+  const handleSeatClick = (index) => {
+    setButtonColors((prevColors) => {
+      const newColors = [...prevColors];
+      newColors[index] = prevColors[index] === '#282828' ? 'green' : '#282828';
+      return newColors;
     });
 
-    return updatedSeats;
+    const row = Math.floor(index / 12) + 1;
+    const seat = (index % 12) + 1;
+
+    setSelectedSeats((prevSeats) => {
+      const seatExists = prevSeats.some(
+        (selectedSeat) =>
+          selectedSeat.row_number === row && selectedSeat.seat_number === seat
+      );
+
+      if (seatExists) {
+        // Remove the seat if it already exists in selectedSeats
+        return prevSeats.filter(
+          (selectedSeat) =>
+            selectedSeat.row_number !== row || selectedSeat.seat_number !== seat
+        );
+      } else {
+        // Add the seat if it doesn't exist in selectedSeats
+        return [...prevSeats, { row_number: row, seat_number: seat }];
+      }
+    });
   };
 
-  const renderSeats = () => {
-    const seats = [];
-    for (let i = 0; i < 6; i++) {
-      seats.push(<div className="row">{renderRow(i)}</div>);
-    }
-    return seats;
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
+  const handleSaveClick = () => {
+    setOpenDialog(true);
+    const data = {
+      screening_id: parseInt(eventId),
+      seats: selectedSeats,
+    };
+    addReservation(data)
+      .then((statement) => {
+        setDialogMessage(statement);
+      })
+      .catch((error) => {
+        console.error(error);
+        setDialogMessage('Wystąpił błąd podczas usuwania filmu');
+      });
+  };
   return (
     <div>
-      {movie && (
       <div>
-        <h1 style={{ textAlign: 'center', fontSize: '36px' }}>Choose seats</h1>
-        <Container sx={{ marginLeft: '25%', marginRight: '25%', textAlign: 'left', marginBottom: 10 }}>
-            <ul>
-                <li style={{ listStyleType: 'none', cursor: 'pointer' }}>
-                    <Container style={{ display: 'flex' }}>
-                        <p>
-                            Title: {movie.title} <br></br> <br></br>
-                            Subtitles {movie.subtitles}, {movie.format}<br></br><br></br>
-                            {movie.date} {movie.hour} <br></br><br></br>
-                            Hall:
-
-                        </p>
-                        <Link style={{ paddingLeft: 400}} to={`/movie-description/${movie.id}`}>
-                            <img src={movie.photo} alt={movie.title} style={{ width: '180px', height: 'auto', marginTop: '13px'}} />
-                        </Link>
-                    </Container>
-                </li>
-                <div className="screen">
-                    <span>Ekran</span>
-                </div>
-            </ul>
+        <h1 style={{ textAlign: 'center', fontSize: '36px' }}>
+          Wybierz miejsca
+        </h1>
+        <Container
+          sx={{ marginLeft: '21.8%', textAlign: 'left', marginBottom: '85px' }}
+        >
+          <ul>
+            <li style={{ listStyleType: 'none', cursor: 'pointer' }}>
+              <Container style={{ display: 'flex' }}>
+                <p>
+                  Tytuł: {movie.title} <br></br> <br></br>
+                  {translation}, {event.image_format}
+                  <br></br>
+                  <br></br>
+                  {date} {hour} <br></br>
+                  <br></br>
+                  Numer sali: {event.room_number}
+                </p>
+                <Link
+                  style={{ paddingLeft: 540 }}
+                  to={`/movie-description/${movie.id}`}
+                >
+                  <img
+                    src={movie.image}
+                    alt={movie.title}
+                    style={{
+                      width: '180px',
+                      height: 'auto',
+                      marginTop: '13px',
+                    }}
+                  />
+                </Link>
+              </Container>
+            </li>
+            <div
+              style={{
+                width: '78%',
+                height: '60px',
+                marginTop: '2%',
+                backgroundColor: 'lightgray',
+                display: 'flex',
+                color: 'black',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <span>Ekran</span>
+            </div>
+          </ul>
         </Container>
-                  <div>
-            {renderSeats()}
-          </div>
+        <Container
+          sx={{ marginLeft: '24%', textAlign: 'left', marginBottom: 10 }}
+        >
+          {Array.from({ length: 6 }, (_, row) => (
+            <Container sx={{ display: 'flex', marginBottom: '10px' }}>
+              {Array.from({ length: 12 }, (_, col) => {
+                const index = row * 12 + col;
+                const isReserved = isSeatReserved(row + 1, col + 1);
+                const buttonColor = isReserved ? 'red' : buttonColors[index];
+                const block = isReserved ? 'disabled' : '';
+
+                return (
+                  <Button
+                    key={index + 1}
+                    variant="contained"
+                    sx={{
+                      margin: '2px',
+                      width: '10px',
+                      backgroundColor: buttonColor,
+                      '&.Mui-disabled': {
+                        backgroundColor:
+                          block === 'disabled' ? 'red' : buttonColor,
+                      },
+                    }}
+                    disabled={isReserved}
+                    onClick={() => handleSeatClick(index)}
+                  >
+                    {col + 1}
+                  </Button>
+                );
+              })}
+            </Container>
+          ))}
+
+          <Button
+            variant="contained"
+            style={{ marginLeft: '63.5%', marginTop: '30px' }}
+            onClick={handleSaveClick}
+          >
+            Zarezerwuj
+          </Button>
+          <Dialog open={openDialog} onClose={handleCloseDialog}>
+            <DialogTitle>{dialogMessage}</DialogTitle>
+          </Dialog>
+        </Container>
       </div>
-      )}
     </div>
   );
 };
 
-export default Reservation
+export default Reservation;
