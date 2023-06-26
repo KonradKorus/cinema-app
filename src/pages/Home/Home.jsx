@@ -11,16 +11,13 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(
-        `${process.env.REACT_APP_API_URL}/repertoire/1/movies?latest=false&page=1&size=50`
-      );
+
       try {
         const response = await fetch(
           `${process.env.REACT_APP_API_URL}/repertoire/1/movies?latest=false&page=1&size=50`
         );
         const jsonData = await response.json();
 
-        console.log(jsonData);
         setMovies(jsonData);
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -138,11 +135,6 @@ const Home = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {console.log(
-                    movie.repertoire &&
-                      movie.repertoire.movie &&
-                      movie.repertoire.movie.id
-                  )}
                   <Link
                     href={'movie-description/' + movie.movie_id}
                     sx={{

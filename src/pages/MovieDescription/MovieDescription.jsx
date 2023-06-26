@@ -19,16 +19,12 @@ const MovieDescription = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(
-        `${process.env.REACT_APP_API_URL}/repertoire/1/movies?latest=false&page=1&size=50`
-      );
       try {
         const response = await fetch(
           `${process.env.REACT_APP_API_URL}/repertoire/1/movies?latest=false&page=1&size=50`
         );
         const jsonData = await response.json();
 
-        console.log(jsonData);
         setMovies(jsonData);
       } catch (error) {
         console.log('Error fetching data:', error);

@@ -46,21 +46,13 @@ const Repertoire = () => {
     };
 
     filterData(searchData);
-    console.log('Wyszukiwanie...');
   };
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  const handleReservationClick = (filmId) => {
-    console.log('Clicked on "Rezerwacja" button for film ID:', filmId);
-  };
-
-  const handleFilmClick = (filmId) => {
-    console.log('Kliknięto film o ID:', filmId);
-    alert(`Kliknięto film o ID: ${filmId}`);
-  };
+  const handleReservationClick = (filmId) => {};
 
   const handleDateChange = (data) => {
     setSelectedDate(data);
@@ -144,7 +136,7 @@ const Repertoire = () => {
                   </p>
                   <Link
                     style={{ paddingLeft: 40 }}
-                    to={`/movie-description/${film.id}`}
+                    to={`/movie-description/${film.repertoire.movie.id}`}
                   >
                     <img
                       src={film.repertoire.movie.image}

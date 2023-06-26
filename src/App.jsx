@@ -23,7 +23,6 @@ import EventForm from './pages/AdminPanel/EventForm/EventForm';
 
 function App() {
   let isLogged = localStorage.getItem('user') !== null;
-  console.log(localStorage.getItem('user') === null);
   return (
     <AuthProvider>
       <div className="App">

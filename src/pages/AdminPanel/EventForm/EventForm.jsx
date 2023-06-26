@@ -72,7 +72,7 @@ const EventForm = () => {
       setSelectedRepertoireId(repertoire.items.find(item => item.movie_id === parseInt(movieId)).id);
       setSelectedTitle(repertoire.items.find(item => item.movie_id === parseInt(movieId)).title)
       const event = await getScreeningById(parseInt(eventId))
-      console.log(event)
+
       if(eventId !== "0" && event){
           setSelectedDate(event.start_time.split('T')[0])
           setSelectedHour(event.start_time.split('T')[1].split(':')[0] + ':' + event.start_time.split('T')[1].split(':')[1])
@@ -106,7 +106,7 @@ const EventForm = () => {
   };
 
   const handleSaveClick = async() => {
-    // console.log(screeningData)
+
     if(eventId === "0"){
       setOpenDialog(true);
       try {
@@ -118,7 +118,7 @@ const EventForm = () => {
       }
     } else{
       setOpenDialog(true);
-      console.log(screeningDataToUpdate)
+
       try {
         const statement = await updateScreening(screeningDataToUpdate, parseInt(eventId));
         setDialogMessage(statement);

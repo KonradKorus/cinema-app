@@ -32,7 +32,6 @@ const Reservation = () => {
       const data = await getScreeningById(parseInt(eventId));
       const seats = await getReservedBookSeats(parseInt(eventId));
       setReservedSeats(seats);
-      console.log(selectedSeats);
       if (data) {
         setEvent(data);
         setMovie(data.repertoire.movie);

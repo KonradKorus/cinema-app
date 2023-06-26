@@ -25,7 +25,7 @@ const Login = () => {
         setPass('');
         setError(true);
     });
-    console.log(token)
+
 
     if(typeof(token) == "undefined")
     {
