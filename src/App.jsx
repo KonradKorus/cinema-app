@@ -1,6 +1,6 @@
 import Footer from './components/Footer';
 import Navbar from './components/Navbar/Navbar';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -18,8 +18,11 @@ import ChangePassword from './pages/Profile/ChangePassword';
 import EditProfile from './pages/Profile/EditProfile';
 import ResetPassword from './pages/Login/ResetPassword';
 import ForgotPassword from './pages/Login/ForgotPassword';
+import MovieForm from './pages/AdminPanel/MovieForm/MovieForm';
+import EventForm from './pages/AdminPanel/EventForm/EventForm';
 
 function App() {
+  let isLogged = localStorage.getItem('user') !== null;
   return (
     <AuthProvider>
       <div className="App">
@@ -36,16 +39,27 @@ function App() {
             <Route path="/events" element={<Events />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/edit-profile" element={<EditProfile />}></Route>
-            <Route path="/change-password" element={<ChangePassword/>}></Route>
+            <Route path="/change-password" element={<ChangePassword />}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-            <Route 
+
+            <Route
               path="/reset-password/:resetToken"
-              element = {<ResetPassword/>}
+              element={<ResetPassword />}
             ></Route>
+
+            <Route path="/MovieForm/:movieId" element={<MovieForm />}></Route>
+
+            <Route
+              path="/EventForm/:movieId/:eventId"
+              element={<EventForm />}
+            ></Route>
+
             <Route
               path="/reservation/:eventId"
               element={<Reservation />}
             ></Route>
+
+            <Route path="/profile" element={<Profile />}></Route>
             <Route
               path="/movie-description/:movieId"
               element={<MovieDescription />}

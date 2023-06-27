@@ -43,7 +43,6 @@ const EditProfile = () => {
             phone: phone
         }
 
-        console.log(edit)
 
         const res = await editUser(edit, user.id)
         .catch((e) => 

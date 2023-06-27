@@ -1,0 +1,45 @@
+.main-container {
+  margin: auto;
+  max-width: 900px;  
+}
+
+.margin-container {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.upper-container{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5%;
+}
+
+.whole-info-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 2px solid #25449a;
+  padding: 10px;
+}
+
+
+.upper-container img{
+  max-width: 35%;
+  height:auto;
+  margin-right: 20px;
+  border: 2px solid #25449a;
+  padding: 10px;
+}
+
+.film-description{
+  text-align: justify;
+}
+
+.film-player{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
