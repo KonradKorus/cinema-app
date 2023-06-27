@@ -542,7 +542,7 @@ export const getUserReservations = async (id) => {
         Authorization: `Bearer ${token}`,
       },
     }
-  );
+
 
   const reservations = await res.json();
 

@@ -70,6 +70,7 @@ const EditProfile = () => {
                         sx={{width: 150, height: 150}}
                         src={avatar}
                         />
+                    <AvatarModal/>
                     </Grid>
                     <Grid sx={{display:"block", justifyContent:"stretch", marginLeft: '10%'}}>
                         <Box sx={{display:"flex"}}>
